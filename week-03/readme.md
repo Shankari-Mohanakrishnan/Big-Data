@@ -5,3 +5,4 @@ java
 javac
 3)To find the version of java installed use the command
 java-version
+4) Make the follwing changes in
