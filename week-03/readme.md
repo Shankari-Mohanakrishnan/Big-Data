@@ -97,3 +97,140 @@ Formatting the HDFS -> hdfs namenode -format
 Starting HDFS  ->   start-dfs.sh
 Starting YARN  ->   start-yarn.sh
 Starting MapReduce->mr-jobbhistory-deamon.sh start historyserver
+
+For the first case that is for the data set 1990.
+
+Create a directory:
+
+To make a directory use the command.
+hadoop fs -mkdir -p /USER/$USER/tempdata/1990/1990/ 
+
+Get data to virtual machine and move to hdfs.
+
+1. Downloaded all the files from google drive and create a directory data and paste the downloaded 1990.gz.
+2. Unzip the file using the command:
+	gunzip 1990.gz
+3. To move data to hdfs.
+hadoop fs -coopyFromLocal ./1990 /USER/$USER/tempdata/1990/1990/
+
+To execute the code.
+
+1. Move to home directory.
+2. Go to this location to find the code
+	hadoop-2.5.2->ch02-mr-intro->src->main->java
+3. To compile and create a jar.
+	hadoop com.sun.tools.javac.Main *.java
+4. Use jar command
+	jar cf mt.jar MaxTemperature*.class
+5.  Run the application.
+	hadoop jar mt.jar MaxTemperature /user/$USER/tempdata/1990 /user/$USER/output3
+
+Go to localhost:19888/jobhistory to see the required jobhistory.
+
+To obtain the output  
+1. Use the command:
+	hadoop fs -ls /user/$USER/output3
+2. Display the output 
+	hadoop fs -cat /user/$USER/output3/part-r-00000
+
+Now to run the combainer class use the command:
+hadoop jar mt.jar MaxTemperatureWithCombiner /user/$USER/tempdata/1990 /user/$USER/output13
+
+To obtain the output  
+1. Use the command:
+	hadoop fs -ls /user/$USER/output3
+2. Display the output 
+	hadoop fs -cat /user/$USER/output3/part-r-00000
+
+
+For the second case that is for the dataset 1990 and 1992. 
+
+Create a directory:
+
+To make a directory use the command.
+hadoop fs -mkdir -p /USER/$USER/tempdata/1990-92/ 
+
+Get data to virtual machine and move to hdfs.
+
+1. Downloaded all the files from google drive and create a directory data and paste the downloaded 1990.gz and 1992.gz.
+2. Unzip the file using the command:
+	gunzip 1990.gz
+	gunzip 1992.gz
+3. To move data to hdfs.
+hadoop fs -coopyFromLocal ./1990-92 /USER/$USER/tempdata/1990-92
+
+To execute the code.
+
+1. Move to home directory.
+2. Go to this location to find the code
+	hadoop-2.5.2->ch02-mr-intro->src->main->java
+3. To compile and create a jar.
+	hadoop com.sun.tools.javac.Main *.java
+4. Use jar command
+	jar cf mt.jar MaxTemperature*.class
+5.  Run the application.
+	hadoop jar mt.jar MaxTemperature /user/$USER/tempdata/1990-92 /user/$USER/output9
+
+Go to localhost:19888/jobhistory to see the required jobhistory.
+
+To obtain the output  
+1. Use the command:
+	hadoop fs -ls /user/$USER/output9
+2. Display the output 
+	hadoop fs -cat /user/$USER/output9/part-r-00000
+
+Now to run the combainer class use the command:
+hadoop jar mt.jar MaxTemperatureWithCombiner /user/$USER/tempdata/1990-92 /user/$USER/output12
+
+To obtain the output  
+1. Use the command:
+	hadoop fs -ls /user/$USER/output12
+2. Display the output 
+	hadoop fs -cat /user/$USER/output12/part-r-00000
+
+For the third case that is for the dataset for the years 1990, 1991, 1992, 1993.
+
+
+Create a directory:
+
+To make a directory use the command.
+hadoop fs -mkdir -p /USER/$USER/tempdata/19all/ 
+
+Get data to virtual machine and move to hdfs.
+
+1. Downloaded all the files from google drive and create a directory data and paste the downloaded 1990.gz to 1993.gz.
+2. Unzip the file using the command:
+	gunzip *.gz
+3. To move data to hdfs.
+	hadoop fs -coopyFromLocal ./1990-92 /USER/$USER/tempdata/1990-92
+
+To execute the code.
+
+1. Move to home directory.
+2. Go to this location to find the code
+	hadoop-2.5.2->ch02-mr-intro->src->main->java
+3. To compile and create a jar.
+	hadoop com.sun.tools.javac.Main *.java
+4. Use jar command
+	jar cf mt.jar MaxTemperature*.class
+5.  Run the application.
+	hadoop jar mt.jar MaxTemperature /user/$USER/tempdata/19all /user/$USER/output10
+
+Go to localhost:19888/jobhistory to see the required jobhistory.
+
+To obtain the output  
+1. Use the command:
+	hadoop fs -ls /user/$USER/output10
+2. Display the output 
+	hadoop fs -cat /user/$USER/output10/part-r-00000
+
+Now to run the combainer class use the command:
+hadoop jar mt.jar MaxTemperatureWithCombiner /user/$USER/tempdata/19all /user/$USER/output11
+
+To obtain the output  
+1. Use the command:
+	hadoop fs -ls /user/$USER/output11
+2. Display the output 
+	hadoop fs -cat /user/$USER/output11/part-r-00000
+
+
