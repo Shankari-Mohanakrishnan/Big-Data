@@ -1,0 +1,93 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Properties;
+import java.util.zip.GZIPInputStream;
+
+public class DataSet1 {
+	private static final String dbDriver = "com.mysql.jdbc.Driver";
+	private static final String connectionString ="jdbc:mysql://127.0.0.1/ShankariDB";
+	public static void main(String[] args){
+		try{
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					new FileInputStream("1990")));
+			String content;
+			Class.forName(dbDriver);
+			Properties p = new Properties();
+		    p.put("user","root");
+		    p.put("password","sai");
+
+			Connection c=DriverManager.getConnection(connectionString,p);
+			PreparedStatement prepstmt=null, prepstmt1=null, prepstmt2=null;
+			while ((content = in.readLine()) != null){
+			if(!(content.substring(15,19).contains("9999")) && !(content.substring(87,92).contains("99999")) && !(content.substring(88,92).contains("9999"))){
+				String s="insert into test1 values (?,?,?,?,?,?,?,?,?,?,?,?)";
+			String s1="insert into test2 values (?,?,?,?,?,?,?,?,?,?,?,?)";
+				String s2="insert into test3 values (?,?,?,?,?,?,?,?,?,?,?,?)";
+				prepstmt=c.prepareStatement(s);
+				prepstmt.setInt(1, Integer.parseInt(content.substring(4, 10)));
+				prepstmt.setInt(2,  Integer.parseInt(content.substring(10,15)));
+				prepstmt.setInt(3, Integer.parseInt(content.substring(23, 27)));
+				prepstmt.setString(4, content.substring(28, 34));
+				prepstmt.setString(5, content.substring(34, 41));
+				prepstmt.setString(6, content.substring(46, 51));
+				prepstmt.setInt(7, Integer.parseInt(content.substring(60, 63)));
+				prepstmt.setInt(8, Integer.parseInt(String.valueOf(content.charAt(63))));
+				prepstmt.setInt(9, Integer.parseInt(content.substring(78, 84)));
+				prepstmt.setInt(10, Integer.parseInt(content.substring(99, 104)));
+				prepstmt.setInt(11, Integer.parseInt(content.substring(15, 19)));
+				prepstmt.setInt(12, Integer.parseInt(content.substring(87, 92)));
+
+				prepstmt1=c.prepareStatement(s1);
+
+				prepstmt1.setInt(1, Integer.parseInt(content.substring(4, 10)));
+				prepstmt1.setInt(2,  Integer.parseInt(content.substring(10,15)));
+				prepstmt1.setInt(3, Integer.parseInt(content.substring(23, 27)));
+				prepstmt1.setString(4, content.substring(28, 34));
+				prepstmt1.setString(5, content.substring(34, 41));
+				prepstmt1.setString(6, content.substring(46, 51));
+				prepstmt1.setInt(7, Integer.parseInt(content.substring(60, 63)));
+				prepstmt1.setInt(8, Integer.parseInt(String.valueOf(content.charAt(63))));
+				prepstmt1.setInt(9, Integer.parseInt(content.substring(78, 84)));
+				prepstmt1.setInt(10, Integer.parseInt(content.substring(99, 104)));
+				prepstmt1.setInt(11, Integer.parseInt(content.substring(15, 19)));
+				prepstmt1.setInt(12, Integer.parseInt(content.substring(87, 92)));
+
+				prepstmt2=c.prepareStatement(s2);
+
+				prepstmt2.setInt(1, Integer.parseInt(content.substring(4, 10)));
+				prepstmt2.setInt(2,  Integer.parseInt(content.substring(10,15)));
+				prepstmt2.setInt(3, Integer.parseInt(content.substring(23, 27)));
+				prepstmt2.setString(4, content.substring(28, 34));
+				prepstmt2.setString(5, content.substring(34, 41));
+				prepstmt2.setString(6, content.substring(46, 51));
+				prepstmt2.setInt(7, Integer.parseInt(content.substring(60, 63)));
+				prepstmt2.setInt(8, Integer.parseInt(String.valueOf(content.charAt(63))));
+				prepstmt2.setInt(9, Integer.parseInt(content.substring(78, 84)));
+				prepstmt2.setInt(10, Integer.parseInt(content.substring(99, 104)));
+				prepstmt2.setInt(11, Integer.parseInt(content.substring(15, 19)));
+				prepstmt2.setInt(12, Integer.parseInt(content.substring(87, 92)));
+
+				prepstmt.executeUpdate();
+				System.out.println("Inserted Value Into DataSet1 ");
+			prepstmt1.executeUpdate();
+			System.out.println("Inserted Value Into DataSet2");
+				prepstmt2.executeUpdate();
+				System.out.println("Inserted Value Into DataSet3");
+			}
+			prepstmt.close();
+			prepstmt1.close();
+			prepstmt2.close();
+		}
+	}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+
+}
+
+
